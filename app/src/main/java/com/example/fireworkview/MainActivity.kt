@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.fireworkview.databinding.MainActivityBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding :MainActivityBinding
+    private lateinit var binding: MainActivityBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +31,11 @@ class MainActivity : AppCompatActivity() {
             override fun onFireworkCompleted() {
                 Log.d("ManhNQ", "onFireworkCompleted: ")
             }
-
         })
+
+        binding.fireWorkView.setCenterText("Chuc mung 30/4")
+        binding.fireWorkView.setBackgroundColor(75, R.color.black)
+
 
     }
 }

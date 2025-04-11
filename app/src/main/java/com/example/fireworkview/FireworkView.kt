@@ -14,6 +14,7 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import androidx.core.animation.doOnEnd
+import androidx.core.graphics.alpha
 import java.util.Random
 import kotlin.math.cos
 import kotlin.math.sin
@@ -38,7 +39,7 @@ class FireworkView @JvmOverloads constructor(
     private var launchAnimator: ValueAnimator? = null
 
     // Explosion size in DP
-    private val explosionSizeDp = 100f
+    private val explosionSizeDp = 150f
     private val explosionSizePx by lazy { dpToPx(explosionSizeDp) }
 
     // Timeout handling
@@ -52,6 +53,16 @@ class FireworkView @JvmOverloads constructor(
 
     // Completion listener
     private var completionListener: OnFireworkCompletionListener? = null
+
+    private var backgroundColor: Int = Color.BLACK // Default background color
+    private var centerText: String? = null // Text to display at the center
+    private val textPaint = Paint().apply {
+        color = Color.WHITE // Default text color
+        textSize = 50f // Default text size
+        isAntiAlias = true
+        textAlign = Paint.Align.CENTER // Center align text
+    }
+
 
     // DP to Pixel conversion utility function
     private fun dpToPx(dp: Float): Float {
@@ -208,7 +219,17 @@ class FireworkView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
+        canvas.drawColor(backgroundColor)
+
+        // Draw the fireworks
         super.onDraw(canvas)
+
+        // Draw the center text if it exists
+        centerText?.let {
+            val x = width / 2f
+            val y = height / 2f - (textPaint.descent() + textPaint.ascent()) / 2 // Center vertically
+            canvas.drawText(it, x, y, textPaint)
+        }
 
         // Use iterator to safely remove completed fireworks
         val iterator = fireworks.iterator()
@@ -382,7 +403,7 @@ class FireworkView @JvmOverloads constructor(
         }
 
         private fun drawExplosion(canvas: Canvas, paint: Paint) {
-            // Draw explosion particles
+            // Draw explosion particles with glow effect
             for (particle in particles) {
                 particle.update(explosionProgress)
 
@@ -392,9 +413,11 @@ class FireworkView @JvmOverloads constructor(
                     paint.color = particle.color
                     paint.alpha = particleAlpha.coerceIn(0, 255)
 
-                    // Size that diminishes over time
+                    // Draw glow effect
+                    paint.setShadowLayer(10f, 0f, 0f, Color.WHITE) // Glow effect
                     val currentSize = particle.size * (1f - explosionProgress * 0.7f)
                     canvas.drawCircle(particle.x, particle.y, currentSize, paint)
+                    paint.clearShadowLayer() // Clear glow effect for next draw
                 }
             }
         }
@@ -476,6 +499,33 @@ class FireworkView @JvmOverloads constructor(
                 startTimeoutTimer()
             }
         }
+    }
+
+    // Set background color
+    fun setViewBackgroundColor(color: Int) {
+        this.backgroundColor = color
+        invalidate() // Redraw the view
+    }
+
+    // Set text to display at the center
+    fun setCenterText(text: String) {
+        this.centerText = text
+        invalidate() // Redraw the view
+    }
+
+    fun setBackgroundColor(alphaPercent: Int, color: Any) {
+        // Convert alpha percentage to a value between 0 and 255
+        val alpha = (alphaPercent * 255) / 100
+
+        // Determine the color based on input type
+        val colorInt = when (color) {
+            is String -> Color.parseColor(color) // Parse hex color
+            is Int -> color // Use the integer color directly
+            else -> Color.BLACK // Default to black if input is invalid
+        }
+
+        this.backgroundColor = Color.argb(alpha, Color.red(colorInt), Color.green(colorInt), Color.blue(colorInt))
+        invalidate() // Redraw the view
     }
 
     // Set completion listener
