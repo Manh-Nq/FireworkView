@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <com.example.fireworkview.FireworkView
+        android:id="@+id/fire_work_view"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+
+    <LinearLayout
+        android:layout_height="56dp"
+        android:layout_width="match_parent"
+        android:weightSum="4"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/start_btn"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="start" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/pause_btn"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="pause" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/resume_btn"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="resume" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/stop_btn"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="stop" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
