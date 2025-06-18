@@ -4,8 +4,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fireworkview.carosel.MainActivity3
 import com.example.fireworkview.databinding.MainActivity2Binding
-import com.example.fireworkview.infinity.RecyclerViewActivity
 import com.example.fireworkview.shimmer.ShimmerHighlightView
 
 class MainActivity : AppCompatActivity() {
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnRecyclerView.setOnClickListener {
-            val intent = Intent(this, RecyclerViewActivity::class.java)
+            val intent = Intent(this, MainActivity3::class.java)
             startActivity(intent)
         }
     }

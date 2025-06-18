@@ -22,15 +22,20 @@ class HorizontalCarouselRecyclerView(
     private val activeColor by lazy { ContextCompat.getColor(context, R.color.blue) }
     private val inactiveColor by lazy { ContextCompat.getColor(context, R.color.gray) }
     private var viewsToChangeColor: List<Int> = listOf()
+    private var isInfiniteCarousel = false
 
     fun <T : ViewHolder> initialize(newAdapter: Adapter<T>) {
         layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
         newAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
                 post {
-                    val sidePadding = (width / 2) - (getChildAt(0).width / 2)
+                    val sidePadding = (width / 2) - (getChildAt(0)?.width ?: 0) / 2
                     setPadding(sidePadding, 0, sidePadding, 0)
-                    scrollToPosition(0)
+
+                    if (!isInfiniteCarousel) {
+                        scrollToPosition(0)
+                    }
+
                     addOnScrollListener(object : OnScrollListener() {
                         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                             super.onScrolled(recyclerView, dx, dy)
@@ -43,19 +48,35 @@ class HorizontalCarouselRecyclerView(
         adapter = newAdapter
     }
 
+    /**
+     * Đánh dấu đây là infinite carousel để tránh xung đột với CenterSnapHelper
+     */
+    fun setInfiniteCarousel(enabled: Boolean) {
+        isInfiniteCarousel = enabled
+    }
+
     fun setViewsToChangeColor(viewIds: List<Int>) {
         viewsToChangeColor = viewIds
     }
 
     private fun onScrollChanged() {
         post {
+            val recyclerCenterX = (left + right) / 2
+            val maxRotation = 30f
+            val maxDistance = width / 2f
             (0 until childCount).forEach { position ->
                 val child = getChildAt(position)
-                val childCenterX = (child.left + child.right) / 2
-                val scaleValue = getGaussianScale(childCenterX, 1f, 1f, 150.toDouble())
-                child.scaleX = scaleValue
-                child.scaleY = scaleValue
-                colorView(child, scaleValue)
+                if (child != null) {
+                    val childCenterX = (child.left + child.right) / 2
+                    val scaleValue = getGaussianScale(childCenterX, 1f, 1f, 150.toDouble())
+                    child.scaleX = scaleValue
+                    child.scaleY = scaleValue
+                    colorView(child, scaleValue)
+
+                    val distanceFromCenter = (childCenterX - recyclerCenterX).toFloat()
+                    val rotationY = (maxRotation * distanceFromCenter / maxDistance).coerceIn(-maxRotation, maxRotation)
+                    child.rotationY = rotationY
+                }
             }
         }
     }

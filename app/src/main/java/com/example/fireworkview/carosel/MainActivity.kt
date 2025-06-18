@@ -12,7 +12,7 @@ class MainActivity3 : AppCompatActivity() {
     private lateinit var binding: ActivityRecyclerViewBinding
 
     private val itemAdapter by lazy {
-        ItemAdapter { position: Int, item: Item ->
+        InfiniteCarouselAdapter { position: Int, item: Item ->
             Toast.makeText(this@MainActivity3, "Pos ${position}", Toast.LENGTH_LONG).show()
             binding.recyclerView.smoothScrollToPosition(position)
         } }

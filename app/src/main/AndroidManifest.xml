@@ -31,11 +31,6 @@
                 android:value="" />
         </activity>
 
-        <activity
-            android:name=".infinity.RecyclerViewActivity"
-            android:exported="false"
-            android:label="RecyclerView Demo" />
-
         <receiver
             android:exported="true"
             android:name=".AppWidget">
