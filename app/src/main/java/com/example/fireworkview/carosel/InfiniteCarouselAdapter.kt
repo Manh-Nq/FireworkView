@@ -74,6 +74,10 @@ class InfiniteCarouselAdapter(
             null
         }
     }
+
+    fun getRealItemCount(): Int {
+        return originalItems.size
+    }
 }
 
 class InfiniteCarouselViewHolder(private val view: ListItemBinding) : RecyclerView.ViewHolder(view.root) {

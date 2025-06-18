@@ -15,7 +15,8 @@ class MainActivity3 : AppCompatActivity() {
         InfiniteCarouselAdapter { position: Int, item: Item ->
             Toast.makeText(this@MainActivity3, "Pos ${position}", Toast.LENGTH_LONG).show()
             binding.recyclerView.smoothScrollToPosition(position)
-        } }
+        }
+    }
 
     private val possibleItems = listOf(
         Item("Airplanes", R.drawable.ic_airplane),
@@ -33,6 +34,13 @@ class MainActivity3 : AppCompatActivity() {
         binding.recyclerView.initialize(itemAdapter)
         binding.recyclerView.setViewsToChangeColor(listOf(R.id.list_item_background, R.id.list_item_text))
         itemAdapter.setItems(getLargeListOfItems())
+
+        // Gắn custom SnapHelper cho infinite carousel
+        val snapHelper = InfiniteLinearSnapHelper(
+            getCenterPosition = { itemAdapter.getCenterPosition() },
+            getRealItemCount = { itemAdapter.getRealItemCount() }
+        )
+        snapHelper.attachToRecyclerView(binding.recyclerView)
     }
 
     private fun getLargeListOfItems(): List<Item> {

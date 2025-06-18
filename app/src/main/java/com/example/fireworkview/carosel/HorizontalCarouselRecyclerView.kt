@@ -62,7 +62,7 @@ class HorizontalCarouselRecyclerView(
     private fun onScrollChanged() {
         post {
             val recyclerCenterX = (left + right) / 2
-            val maxRotation = 30f
+            val maxRotation = 15f
             val maxDistance = width / 2f
             (0 until childCount).forEach { position ->
                 val child = getChildAt(position)
