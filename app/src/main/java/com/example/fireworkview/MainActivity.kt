@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fireworkview.databinding.MainActivity2Binding
+import com.example.fireworkview.infinity.RecyclerViewActivity
+import com.example.fireworkview.shimmer.ShimmerHighlightView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: MainActivity2Binding

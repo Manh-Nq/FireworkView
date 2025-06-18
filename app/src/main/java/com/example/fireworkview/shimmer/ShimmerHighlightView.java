@@ -1,4 +1,4 @@
-package com.example.fireworkview;
+package com.example.fireworkview.shimmer;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

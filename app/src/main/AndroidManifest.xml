@@ -18,7 +18,7 @@
             android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:name=".MainActivity"
+            android:name=".carosel.MainActivity3"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +32,7 @@
         </activity>
 
         <activity
-            android:name=".RecyclerViewActivity"
+            android:name=".infinity.RecyclerViewActivity"
             android:exported="false"
             android:label="RecyclerView Demo" />
 

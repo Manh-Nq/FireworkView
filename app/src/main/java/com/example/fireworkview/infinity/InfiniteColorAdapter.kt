@@ -1,4 +1,4 @@
-package com.example.fireworkview
+package com.example.fireworkview.infinity
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fireworkview.databinding.ItemColorViewBinding
+import com.example.fireworkview.databinding.ListItemBinding
 
 class InfiniteColorAdapter : ListAdapter<ColorItem, InfiniteColorAdapter.ColorViewHolder>(ColorItemDiffCallback()) {
 
@@ -18,7 +19,7 @@ class InfiniteColorAdapter : ListAdapter<ColorItem, InfiniteColorAdapter.ColorVi
     private var originalList = listOf<ColorItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorViewHolder {
-        val binding = ItemColorViewBinding.inflate(
+        val binding = ListItemBinding.inflate(
             LayoutInflater.from(parent.context), 
             parent, 
             false
@@ -60,14 +61,16 @@ class InfiniteColorAdapter : ListAdapter<ColorItem, InfiniteColorAdapter.ColorVi
 
     fun getOriginalItemCount(): Int = originalList.size
 
-    class ColorViewHolder(private val binding: ItemColorViewBinding) : 
+    class ColorViewHolder(private val binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         
         fun bind(colorItem: ColorItem) {
-            binding.colorView.apply {
+           /* binding.colorView.apply {
                 setBackgroundColor(colorItem.color)
                 layoutParams.width = colorItem.width
-            }
+            }*/
+            binding.listItemText.text = colorItem.id.toString()
+            binding.listItemBackground.setBackgroundColor(colorItem.color)
         }
     }
 

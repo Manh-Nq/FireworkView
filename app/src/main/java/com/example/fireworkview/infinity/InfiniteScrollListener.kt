@@ -1,4 +1,4 @@
-package com.example.fireworkview
+package com.example.fireworkview.infinity
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
