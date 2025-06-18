@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <com.example.fireworkview.ShimmerHighlightView
+        android:id="@+id/shimmer_view"
+        android:layout_height="200dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent" />
+
+    <Button
+        android:id="@+id/btn_start_shimmer"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:text="Start Shimmer (Loop)" />
+
+    <Button
+        android:id="@+id/btn_play_once"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:text="Play Once" />
+
+    <Button
+        android:id="@+id/btn_stop_shimmer"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:text="Stop Shimmer" />
+
+    <Button
+        android:id="@+id/btn_transparent_bg"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:text="Set Transparent Background" />
+
+    <Button
+        android:id="@+id/btn_white_bg"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:text="Set White Background" />
+
+    <Button
+        android:id="@+id/btn_gray_bg"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:text="Set Gray Background" />
+
+    <Button
+        android:id="@+id/btn_golden_sun"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:text="Warm Light Bulb (#FFE87C)" />
+
+    <Button
+        android:id="@+id/btn_orange_sun"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:text="Bright Light Bulb (#FFFACD)" />
+
+    <Button
+        android:id="@+id/btn_yellow_sun"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:text="Incandescent Light (#FFEFD5)" />
+
+</LinearLayout>

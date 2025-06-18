@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@drawable/widget_background">
+
+    <TextView
+        android:id="@+id/widget_data_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0 ¥"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"/>
+
+    <Button
+        android:id="@+id/widget_open_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open App"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#FF9800"/>
+
+</LinearLayout> 
