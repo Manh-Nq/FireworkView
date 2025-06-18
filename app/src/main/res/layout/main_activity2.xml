@@ -64,6 +64,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_play_once" />
 
+
+            <Button
+                android:id="@+id/btn_recycler_view"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_width="0dp"
+                android:text="List"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_stop_shimmer" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

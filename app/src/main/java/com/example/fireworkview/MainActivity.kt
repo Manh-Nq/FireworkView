@@ -1,5 +1,6 @@
 package com.example.fireworkview
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -41,6 +42,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnPlayOnce.setOnClickListener {
             playShimmerOnce()
+        }
+
+        binding.btnRecyclerView.setOnClickListener {
+            val intent = Intent(this, RecyclerViewActivity::class.java)
+            startActivity(intent)
         }
     }
 
