@@ -1,78 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:padding="16dp">
 
-    <com.example.fireworkview.ShimmerHighlightView
-        android:id="@+id/shimmer_view"
-        android:layout_height="200dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="match_parent" />
-
-    <Button
-        android:id="@+id/btn_start_shimmer"
+    <androidx.core.widget.NestedScrollView
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
-        android:text="Start Shimmer (Loop)" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btn_play_once"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_width="match_parent"
-        android:text="Play Once" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btn_stop_shimmer"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_width="match_parent"
-        android:text="Stop Shimmer" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_view"
+                android:layout_height="500dp"
+                android:layout_width="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher_round"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_transparent_bg"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_width="match_parent"
-        android:text="Set Transparent Background" />
+            <com.example.fireworkview.ShimmerHighlightView
+                android:id="@+id/shimmer_view"
+                android:layout_height="500dp"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_white_bg"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_width="match_parent"
-        android:text="Set White Background" />
+            <Button
+                android:id="@+id/btn_start_shimmer"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_width="0dp"
+                android:text="Start Shimmer (Loop)"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shimmer_view" />
 
-    <Button
-        android:id="@+id/btn_gray_bg"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_width="match_parent"
-        android:text="Set Gray Background" />
+            <Button
+                android:id="@+id/btn_play_once"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_width="0dp"
+                android:text="Play Once"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_start_shimmer" />
 
-    <Button
-        android:id="@+id/btn_golden_sun"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_width="match_parent"
-        android:text="Warm Light Bulb (#FFE87C)" />
+            <Button
+                android:id="@+id/btn_stop_shimmer"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_width="0dp"
+                android:text="Stop Shimmer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_play_once" />
 
-    <Button
-        android:id="@+id/btn_orange_sun"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_width="match_parent"
-        android:text="Bright Light Bulb (#FFFACD)" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/btn_yellow_sun"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_width="match_parent"
-        android:text="Incandescent Light (#FFEFD5)" />
+    </androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
