@@ -11,8 +11,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import com.example.fireworkview.R
+import kotlin.math.pow
 
 class HorizontalCarouselRecyclerView(
     context: Context,
@@ -23,9 +26,17 @@ class HorizontalCarouselRecyclerView(
     private val inactiveColor by lazy { ContextCompat.getColor(context, R.color.gray) }
     private var viewsToChangeColor: List<Int> = listOf()
     private var isInfiniteCarousel = false
+    private var snapHelper: SnapHelper? = null
 
     fun <T : ViewHolder> initialize(newAdapter: Adapter<T>) {
         layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
+
+        // Setup snap helper if not infinite carousel
+        if (!isInfiniteCarousel) {
+            snapHelper = PagerSnapHelper()
+            snapHelper?.attachToRecyclerView(this)
+        }
+
         newAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
                 post {
@@ -53,10 +64,72 @@ class HorizontalCarouselRecyclerView(
      */
     fun setInfiniteCarousel(enabled: Boolean) {
         isInfiniteCarousel = enabled
+
+        // Remove snap helper if infinite carousel is enabled
+        if (enabled) {
+            snapHelper?.attachToRecyclerView(null)
+            snapHelper = null
+        } else {
+            // Add snap helper if it was removed
+            if (snapHelper == null) {
+                snapHelper = PagerSnapHelper()
+                snapHelper?.attachToRecyclerView(this)
+            }
+        }
     }
 
     fun setViewsToChangeColor(viewIds: List<Int>) {
         viewsToChangeColor = viewIds
+    }
+
+    /**
+     * Lấy vị trí item đang được snap (center)
+     */
+    fun getCurrentSnappedPosition(): Int {
+        return if (snapHelper != null) {
+            val layoutManager = layoutManager as? LinearLayoutManager
+            val view = snapHelper?.findSnapView(layoutManager)
+            view?.let { layoutManager?.getPosition(it) } ?: 0
+        } else {
+            // Fallback cho infinite carousel
+            val layoutManager = layoutManager as? LinearLayoutManager
+            layoutManager?.findFirstVisibleItemPosition() ?: 0
+        }
+    }
+
+    /**
+     * Snap đến vị trí cụ thể
+     */
+    fun snapToPosition(position: Int) {
+        if (snapHelper != null) {
+            smoothScrollToPosition(position)
+        } else {
+            scrollToPosition(position)
+        }
+    }
+
+    /**
+     * Snap đến item tiếp theo
+     */
+    fun snapToNext() {
+        val currentPosition = getCurrentSnappedPosition()
+        val itemCount = adapter?.itemCount ?: 0
+        if (itemCount > 0) {
+            val nextPosition = (currentPosition + 1) % itemCount
+            snapToPosition(nextPosition)
+        }
+    }
+
+    /**
+     * Snap đến item trước đó
+     */
+    fun snapToPrevious() {
+        val currentPosition = getCurrentSnappedPosition()
+        val itemCount = adapter?.itemCount ?: 0
+        if (itemCount > 0) {
+            val previousPosition = if (currentPosition > 0) currentPosition - 1 else itemCount - 1
+            snapToPosition(previousPosition)
+        }
     }
 
     private fun onScrollChanged() {
@@ -68,7 +141,7 @@ class HorizontalCarouselRecyclerView(
                 val child = getChildAt(position)
                 if (child != null) {
                     val childCenterX = (child.left + child.right) / 2
-                    val scaleValue = getGaussianScale(childCenterX, 1f, 1f, 150.toDouble())
+                    val scaleValue = getGaussianScale(childCenterX, 1f, 1f, 300.toDouble())
                     child.scaleX = scaleValue
                     child.scaleY = scaleValue
                     colorView(child, scaleValue)
@@ -92,7 +165,7 @@ class HorizontalCarouselRecyclerView(
             when (viewToChangeColor) {
                 is ImageView -> {
                     viewToChangeColor.colorFilter = ColorMatrixColorFilter(matrix)
-                    viewToChangeColor.imageAlpha = (255 * alphaPercent).toInt()
+//                    viewToChangeColor.imageAlpha = (255 * alphaPercent).toInt()
                 }
 
                 is TextView -> {
@@ -115,12 +188,8 @@ class HorizontalCarouselRecyclerView(
         spreadFactor: Double
     ): Float {
         val recyclerCenterX = (left + right) / 2
-        return (Math.pow(
-            Math.E,
-            -Math.pow(childCenterX - recyclerCenterX.toDouble(), 2.toDouble()) / (2 * Math.pow(
-                spreadFactor,
-                2.toDouble()
-            ))
+        return (Math.E.pow(
+            -(childCenterX - recyclerCenterX.toDouble()).pow(2.toDouble()) / (2 * spreadFactor.pow(2.toDouble()))
         ) * scaleFactor + minScaleOffest).toFloat()
     }
 
