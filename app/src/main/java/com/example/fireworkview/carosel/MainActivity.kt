@@ -31,7 +31,7 @@ class MainActivity3 : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.recyclerView.initialize(itemAdapter)
-        binding.recyclerView.setViewsToChangeColor(listOf(R.id.list_item_background, R.id.list_item_text, R.id.left_3d_icon, R.id.right_3d_icon))
+        binding.recyclerView.setViewsToChangeColor(listOf(R.id.list_item_background, R.id.left_3d_icon, R.id.right_3d_icon))
         itemAdapter.setItems(getLargeListOfItems())
         binding.recyclerView.forceRefreshEffects()
     }

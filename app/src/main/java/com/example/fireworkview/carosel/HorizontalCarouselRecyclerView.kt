@@ -135,14 +135,14 @@ class HorizontalCarouselRecyclerView(
     private fun onScrollChanged() {
         post {
             val recyclerCenterX = (left + right) / 2
-            val maxRotation = 15f
+            val maxRotation = 10f
             val maxDistance = width / 2f
             (0 until childCount).forEach { position ->
                 val child = getChildAt(position)
                 if (child != null) {
                     val childCenterX = (child.left + child.right) / 2
                     val minScale = 0.95f
-                    val scaleOffset = 0.2f
+                    val scaleOffset = 0.15f
 
                     val maxScale = minScale + scaleOffset
                     val scaleValue = getGaussianScale(childCenterX, minScale, scaleOffset, 300.0)
@@ -163,7 +163,7 @@ class HorizontalCarouselRecyclerView(
 
         val alpha = convertValue(minScale, maxScale, 0.6f, 1f, scaleValue)
         val alphaImage = convertValue(minScale, maxScale, 1f, 0f, scaleValue)
-        val width = convertValue(minScale, maxScale, 8f, 0f, scaleValue)
+        val width = convertValue(minScale, maxScale, 4f, 0f, scaleValue)
 
         Log.d("ManhNQ", "colorView: $alphaImage")
 
