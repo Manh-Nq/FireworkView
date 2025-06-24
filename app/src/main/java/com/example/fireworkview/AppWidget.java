@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 public class AppWidget extends AppWidgetProvider {
     public static final String ACTION_OPEN_APP = "com.example.fireworkview.ACTION_OPEN_APP";
@@ -39,7 +38,7 @@ public class AppWidget extends AppWidgetProvider {
                 updateAllWidgets(context);
             }
         } else if (ACTION_OPEN_APP.equals(intent.getAction())) {
-            Intent launchIntent = new Intent(context, MainActivity.class);
+            Intent launchIntent = new Intent(context, ShimmerActivity.class);
             launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(launchIntent);
         }

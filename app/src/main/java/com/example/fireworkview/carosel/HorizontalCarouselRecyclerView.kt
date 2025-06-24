@@ -20,8 +20,6 @@ class HorizontalCarouselRecyclerView(
     attrs: AttributeSet
 ) : RecyclerView(context, attrs) {
 
-    private val activeColor by lazy { ContextCompat.getColor(context, R.color.blue) }
-    private val inactiveColor by lazy { ContextCompat.getColor(context, R.color.gray) }
     private var viewsToChangeColor: List<Int> = listOf()
     private var isInfiniteCarousel = false
     private var snapHelper: SnapHelper? = null
@@ -93,7 +91,7 @@ class HorizontalCarouselRecyclerView(
     }
 
 
-    fun getCurrentSnappedPosition(): Int {
+    private fun getCurrentSnappedPosition(): Int {
         return if (snapHelper != null) {
             val layoutManager = layoutManager as? LinearLayoutManager
             val view = snapHelper?.findSnapView(layoutManager)

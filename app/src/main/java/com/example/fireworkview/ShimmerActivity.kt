@@ -4,16 +4,16 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.fireworkview.carosel.MainActivity3
-import com.example.fireworkview.databinding.MainActivity2Binding
+import com.example.fireworkview.carosel.CarouselActivity
+import com.example.fireworkview.databinding.ShimmerActivityBinding
 import com.example.fireworkview.shimmer.ShimmerHighlightView
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: MainActivity2Binding
+class ShimmerActivity : AppCompatActivity() {
+    private lateinit var binding: ShimmerActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = MainActivity2Binding.inflate(layoutInflater)
+        binding = ShimmerActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Initialize ShimmerHighlightView
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnRecyclerView.setOnClickListener {
-            val intent = Intent(this, MainActivity3::class.java)
+            val intent = Intent(this, CarouselActivity::class.java)
             startActivity(intent)
         }
     }

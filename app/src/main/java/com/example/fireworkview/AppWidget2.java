@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 public class AppWidget2 extends AppWidgetProvider {
     public static final String ACTION_UPDATE_DATA = "com.example.fireworkview.ACTION_UPDATE_DATA_2";
@@ -40,19 +39,19 @@ public class AppWidget2 extends AppWidgetProvider {
             }
         } else if (ACTION_PLAY.equals(intent.getAction())) {
             // Start firework
-            Intent launchIntent = new Intent(context, MainActivity.class);
+            Intent launchIntent = new Intent(context, ShimmerActivity.class);
             launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             launchIntent.putExtra("action", "play");
             context.startActivity(launchIntent);
         } else if (ACTION_PAUSE.equals(intent.getAction())) {
             // Pause firework
-            Intent launchIntent = new Intent(context, MainActivity.class);
+            Intent launchIntent = new Intent(context, ShimmerActivity.class);
             launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             launchIntent.putExtra("action", "pause");
             context.startActivity(launchIntent);
         } else if (ACTION_STOP.equals(intent.getAction())) {
             // Stop firework
-            Intent launchIntent = new Intent(context, MainActivity.class);
+            Intent launchIntent = new Intent(context, ShimmerActivity.class);
             launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             launchIntent.putExtra("action", "stop");
             context.startActivity(launchIntent);

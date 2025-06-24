@@ -18,8 +18,9 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/image_view"
-                android:layout_height="500dp"
-                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_width="0dp"
+                app:layout_constraintDimensionRatio="1:1.5"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher_round"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -28,8 +29,9 @@
 
             <com.example.fireworkview.shimmer.ShimmerHighlightView
                 android:id="@+id/shimmer_view"
-                android:layout_height="500dp"
+                android:layout_height="300dp"
                 android:layout_width="0dp"
+                app:layout_constraintDimensionRatio="1:1.5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

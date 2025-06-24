@@ -13,12 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FireworkView"
         tools:targetApi="31">
+        <!--        android:name=".carosel.MainActivity3"-->
 
         <activity
             android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:name=".carosel.MainActivity3"
+            android:name=".ControllerActivity"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +31,9 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <activity android:name=".carosel.CarouselActivity" />
+        <activity android:name=".ShimmerActivity" />
 
         <receiver
             android:exported="true"
