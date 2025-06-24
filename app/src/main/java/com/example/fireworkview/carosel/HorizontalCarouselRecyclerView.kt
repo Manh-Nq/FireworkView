@@ -4,10 +4,8 @@ package com.example.fireworkview.carosel
 import android.content.Context
 import android.util.AttributeSet
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +21,22 @@ class HorizontalCarouselRecyclerView(
     private var viewsToChangeColor: List<Int> = listOf()
     private var isInfiniteCarousel = false
     private var snapHelper: SnapHelper? = null
+    
+    // Callback interface for snap position
+    interface OnSnapPositionChangeListener {
+        fun onSnapPositionChanged(position: Int)
+    }
+    
+    private var snapPositionListener: OnSnapPositionChangeListener? = null
+    private var lastSnappedPosition: Int = -1
+    private var isScrolling = false
+
+    /**
+     * Set listener for snap position changes
+     */
+    fun setOnSnapPositionChangeListener(listener: OnSnapPositionChangeListener?) {
+        snapPositionListener = listener
+    }
 
     /**
      * Force refresh 3D effects after data changes
@@ -56,15 +70,48 @@ class HorizontalCarouselRecyclerView(
                     forceRefreshEffects()
 
                     addOnScrollListener(object : OnScrollListener() {
+                        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                            super.onScrollStateChanged(recyclerView, newState)
+                            
+                            when (newState) {
+                                SCROLL_STATE_IDLE -> {
+                                    // Check if scrolling has stopped and notify position change
+                                    if (isScrolling) {
+                                        isScrolling = false
+                                        checkAndNotifySnapPosition()
+                                    }
+                                }
+                                SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING -> {
+                                    isScrolling = true
+                                }
+                            }
+                        }
+                        
                         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                             super.onScrolled(recyclerView, dx, dy)
                             onScrollChanged()
                         }
                     })
+                    
+                    // Trigger initial position callback after layout is complete
+                    postDelayed({
+                        checkAndNotifySnapPosition()
+                    }, 200)
                 }
             }
         })
         adapter = newAdapter
+    }
+
+    /**
+     * Check current snapped position and notify listener if changed
+     */
+    private fun checkAndNotifySnapPosition() {
+        val currentPosition = getCurrentSnappedPosition()
+        if (currentPosition != lastSnappedPosition) {
+            lastSnappedPosition = currentPosition
+            snapPositionListener?.onSnapPositionChanged(currentPosition)
+        }
     }
 
     /**
@@ -109,6 +156,10 @@ class HorizontalCarouselRecyclerView(
         } else {
             scrollToPosition(position)
         }
+        // For programmatic snap, check position after a short delay
+        postDelayed({
+            checkAndNotifySnapPosition()
+        }, 300)
     }
 
 
@@ -163,7 +214,7 @@ class HorizontalCarouselRecyclerView(
         val alphaImage = convertValue(minScale, maxScale, 1f, 0f, scaleValue)
         val width = convertValue(minScale, maxScale, 4f, 0f, scaleValue)
 
-        Log.d("ManhNQ", "colorView: $alphaImage")
+//        Log.d("ManhNQ", "colorView: $alphaImage")
 
         viewsToChangeColor.forEach { viewId ->
             if (viewId == R.id.left_3d_icon || viewId == R.id.right_3d_icon) {
@@ -179,13 +230,6 @@ class HorizontalCarouselRecyclerView(
                     viewToChangeColor.imageAlpha = (255 * alpha).toInt()
                 }
             }
-
-            /* val viewToChangeColor = child.findViewById<View>(viewId)
-             when (viewToChangeColor) {
-                 is ImageView -> {
-                     viewToChangeColor.imageAlpha = (255 * alpha).toInt()
-                 }
-             }*/
         }
     }
 
@@ -207,6 +251,18 @@ class HorizontalCarouselRecyclerView(
 
     fun convertDpToPixel(dp: Float, context: Context): Float {
         return dp * (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+    }
+
+
+    fun resetSnapPositionState() {
+        lastSnappedPosition = -1
+        isScrolling = false
+    }
+
+    fun triggerInitialPositionCallback() {
+        post {
+            checkAndNotifySnapPosition()
+        }
     }
 
 }

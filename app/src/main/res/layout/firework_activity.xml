@@ -6,16 +6,34 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-    <com.example.fireworkview.FireworkView
+    <com.example.fireworkview.firework.FireworkView
         android:id="@+id/fire_work_view"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/count_down_txt"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/prepare_btn"
+            android:layout_height="56dp"
+            android:layout_width="match_parent"
+            android:text="prepare" />
 
         <LinearLayout
             android:layout_height="56dp"

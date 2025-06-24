@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fireworkview.carosel.CarouselActivity
 import com.example.fireworkview.databinding.ControllerActivityBinding
+import com.example.fireworkview.firework.FireWorkActivity
+import com.example.fireworkview.shimmer.ShimmerActivity
 
 class ControllerActivity : AppCompatActivity() {
     private lateinit var binding: ControllerActivityBinding
@@ -19,7 +21,6 @@ class ControllerActivity : AppCompatActivity() {
     }
 
 
-
     private fun setupButtons() {
         binding.shimmerBtn.setOnClickListener {
             val intent = Intent(this, ShimmerActivity::class.java)
@@ -30,7 +31,10 @@ class ControllerActivity : AppCompatActivity() {
             val intent = Intent(this, CarouselActivity::class.java)
             startActivity(intent)
         }
-
+        binding.fireWorkBtn.setOnClickListener {
+            val intent = Intent(this, FireWorkActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

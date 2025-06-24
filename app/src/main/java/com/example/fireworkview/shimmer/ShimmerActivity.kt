@@ -1,12 +1,12 @@
-package com.example.fireworkview
+package com.example.fireworkview.shimmer
 
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fireworkview.carosel.CarouselActivity
 import com.example.fireworkview.databinding.ShimmerActivityBinding
-import com.example.fireworkview.shimmer.ShimmerHighlightView
 
 class ShimmerActivity : AppCompatActivity() {
     private lateinit var binding: ShimmerActivityBinding
@@ -45,19 +45,10 @@ class ShimmerActivity : AppCompatActivity() {
         binding.btnPlayOnce.setOnClickListener {
             playShimmerOnce()
         }
-
-        binding.btnRecyclerView.setOnClickListener {
-            val intent = Intent(this, CarouselActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun playShimmerOnce() {
-        binding.shimmerView.playShimmerOnce(object : ShimmerHighlightView.ShimmerCompletionListener {
-            override fun onShimmerCompleted() {
-                println("Shimmer animation completed!")
-            }
-        })
+        binding.shimmerView.playShimmerOnce { Log.d("ManhNQ","Shimmer animation completed!") }
     }
 
 }

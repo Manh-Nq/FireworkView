@@ -6,8 +6,16 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/fire_work_btn"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:text="Firework" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/shimmer_btn"
         android:layout_height="56dp"
+        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:text="Shimmer" />
 

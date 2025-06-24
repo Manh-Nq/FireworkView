@@ -1,4 +1,4 @@
-package com.example.fireworkview;
+package com.example.fireworkview.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -9,13 +9,16 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.example.fireworkview.R;
+import com.example.fireworkview.shimmer.ShimmerActivity;
+
 public class AppWidget2 extends AppWidgetProvider {
     public static final String ACTION_UPDATE_DATA = "com.example.fireworkview.ACTION_UPDATE_DATA_2";
     public static final String ACTION_PLAY = "com.example.fireworkview.ACTION_PLAY";
     public static final String ACTION_PAUSE = "com.example.fireworkview.ACTION_PAUSE";
     public static final String ACTION_STOP = "com.example.fireworkview.ACTION_STOP";
     public static final String EXTRA_DATA_TEXT = "data_text";
-    private static final String PREFS_NAME = "com.example.fireworkview.AppWidget2";
+    private static final String PREFS_NAME = "com.example.fireworkview.widget.AppWidget2";
     private static final String PREF_DATA_TEXT = "widget_data_text";
 
     @Override

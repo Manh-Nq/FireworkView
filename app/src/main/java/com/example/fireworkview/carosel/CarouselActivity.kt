@@ -2,6 +2,7 @@ package com.example.fireworkview.carosel
 
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +16,8 @@ class CarouselActivity : AppCompatActivity() {
         ItemAdapter { position: Int, item: Item ->
             Toast.makeText(this@CarouselActivity, "Pos ${position}", Toast.LENGTH_LONG).show()
             binding.recyclerView.smoothScrollToPosition(position)
-        } }
+        }
+    }
 
     private val possibleItems = listOf(
         Item("Airplanes", R.drawable.ic_airplane),
@@ -32,6 +34,12 @@ class CarouselActivity : AppCompatActivity() {
 
         binding.recyclerView.initialize(itemAdapter)
         binding.recyclerView.setViewsToChangeColor(listOf(R.id.list_item_background, R.id.left_3d_icon, R.id.right_3d_icon))
+        binding.recyclerView.setOnSnapPositionChangeListener(object : HorizontalCarouselRecyclerView.OnSnapPositionChangeListener {
+            override fun onSnapPositionChanged(position: Int) {
+                Log.d("ManhNQ", "onSnapPositionChanged: $position")
+            }
+
+        })
         itemAdapter.setItems(getLargeListOfItems())
         binding.recyclerView.forceRefreshEffects()
     }

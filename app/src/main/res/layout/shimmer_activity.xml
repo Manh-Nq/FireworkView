@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_width="0dp"
-                android:text="Start Shimmer (Loop)"
+                android:text="Start (Loop)"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/shimmer_view" />
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_width="0dp"
-                android:text="Play Once"
+                android:text="Start (1 time)"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_start_shimmer" />
@@ -61,21 +61,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_width="0dp"
-                android:text="Stop Shimmer"
+                android:text="Stop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_play_once" />
-
-
-            <Button
-                android:id="@+id/btn_recycler_view"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_width="0dp"
-                android:text="List"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_stop_shimmer" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

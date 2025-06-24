@@ -1,4 +1,4 @@
-package com.example.fireworkview
+package com.example.fireworkview.firework
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -10,11 +10,9 @@ import android.graphics.Paint
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import androidx.core.animation.doOnEnd
-import androidx.core.graphics.alpha
 import java.util.Random
 import kotlin.math.cos
 import kotlin.math.sin
