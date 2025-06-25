@@ -6,8 +6,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.fireworkview.R
 import com.example.fireworkview.databinding.ActivityRecyclerViewBinding
+import com.google.android.material.carousel.CarouselSnapHelper
 
 class CarouselActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRecyclerViewBinding

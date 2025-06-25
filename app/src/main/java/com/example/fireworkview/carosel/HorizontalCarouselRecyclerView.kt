@@ -7,6 +7,7 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.example.fireworkview.R
@@ -20,12 +21,13 @@ class HorizontalCarouselRecyclerView(
     private var viewsToChangeColor: List<Int> = listOf()
     private var isInfiniteCarousel = false
     private var snapHelper: SnapHelper? = null
-    
+    private var oldSnapHelper: SnapHelper? = null
+
     // Callback interface for snap position
     interface OnSnapPositionChangeListener {
         fun onSnapPositionChanged(position: Int)
     }
-    
+
     private var snapPositionListener: OnSnapPositionChangeListener? = null
     private var lastSnappedPosition: Int = -1
     private var isScrolling = false
@@ -47,11 +49,16 @@ class HorizontalCarouselRecyclerView(
     }
 
     fun <T : ViewHolder> initialize(newAdapter: Adapter<T>) {
+        initialize(newAdapter, null)
+    }
+
+    fun <T : ViewHolder> initialize(newAdapter: Adapter<T>, snapHelperType: SnapHelper? = null) {
+        oldSnapHelper = snapHelperType
         layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
 
         // Setup snap helper if not infinite carousel
         if (!isInfiniteCarousel) {
-            snapHelper = NaturalScrollSnapHelper()
+            snapHelper = snapHelperType ?: LinearSnapHelper()
             snapHelper?.attachToRecyclerView(this)
         }
 
@@ -71,7 +78,7 @@ class HorizontalCarouselRecyclerView(
                     addOnScrollListener(object : OnScrollListener() {
                         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                             super.onScrollStateChanged(recyclerView, newState)
-                            
+
                             when (newState) {
                                 SCROLL_STATE_IDLE -> {
                                     // Check if scrolling has stopped and notify position change
@@ -80,18 +87,19 @@ class HorizontalCarouselRecyclerView(
                                         checkAndNotifySnapPosition()
                                     }
                                 }
+
                                 SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING -> {
                                     isScrolling = true
                                 }
                             }
                         }
-                        
+
                         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                             super.onScrolled(recyclerView, dx, dy)
                             onScrollChanged()
                         }
                     })
-                    
+
                     // Trigger initial position callback after layout is complete
                     postDelayed({
                         checkAndNotifySnapPosition()
@@ -113,9 +121,6 @@ class HorizontalCarouselRecyclerView(
         }
     }
 
-    /**
-     * Đánh dấu đây là infinite carousel để tránh xung đột với CenterSnapHelper
-     */
     fun setInfiniteCarousel(enabled: Boolean) {
         isInfiniteCarousel = enabled
 
@@ -126,7 +131,7 @@ class HorizontalCarouselRecyclerView(
         } else {
             // Add snap helper if it was removed
             if (snapHelper == null) {
-                snapHelper = NaturalScrollSnapHelper()
+                snapHelper = oldSnapHelper ?: LinearSnapHelper()
                 snapHelper?.attachToRecyclerView(this)
             }
         }

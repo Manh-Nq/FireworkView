@@ -6,13 +6,16 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
+
 import com.example.fireworkview.R;
+
 import java.util.List;
 
 public class HorizontalCarouselRecyclerViewJava extends RecyclerView {
@@ -20,12 +23,12 @@ public class HorizontalCarouselRecyclerViewJava extends RecyclerView {
     private List<Integer> viewsToChangeColor;
     private boolean isInfiniteCarousel = false;
     private SnapHelper snapHelper;
-    
+
     // Callback interface for snap position
     public interface OnSnapPositionChangeListener {
         void onSnapPositionChanged(int position);
     }
-    
+
     private OnSnapPositionChangeListener snapPositionListener;
     private int lastSnappedPosition = -1;
     private boolean isScrolling = false;
@@ -66,7 +69,7 @@ public class HorizontalCarouselRecyclerViewJava extends RecyclerView {
 
         // Setup snap helper if not infinite carousel
         if (!isInfiniteCarousel) {
-            snapHelper = new NaturalScrollSnapHelper();
+            snapHelper = new LinearSnapHelper();
             snapHelper.attachToRecyclerView(this);
         }
 
@@ -92,7 +95,7 @@ public class HorizontalCarouselRecyclerViewJava extends RecyclerView {
                             @Override
                             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                                 super.onScrollStateChanged(recyclerView, newState);
-                                
+
                                 switch (newState) {
                                     case SCROLL_STATE_IDLE:
                                         // Check if scrolling has stopped and notify position change
@@ -107,14 +110,14 @@ public class HorizontalCarouselRecyclerViewJava extends RecyclerView {
                                         break;
                                 }
                             }
-                            
+
                             @Override
                             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                                 super.onScrolled(recyclerView, dx, dy);
                                 onScrollChanged();
                             }
                         });
-                        
+
                         // Trigger initial position callback after layout is complete
                         postDelayed(new Runnable() {
                             @Override
@@ -157,7 +160,7 @@ public class HorizontalCarouselRecyclerViewJava extends RecyclerView {
         } else {
             // Add snap helper if it was removed
             if (snapHelper == null) {
-                snapHelper = new NaturalScrollSnapHelper();
+                snapHelper = new LinearSnapHelper();
                 snapHelper.attachToRecyclerView(this);
             }
         }
@@ -219,7 +222,7 @@ public class HorizontalCarouselRecyclerViewJava extends RecyclerView {
                 int recyclerCenterX = (getLeft() + getRight()) / 2;
                 float maxRotation = 10f;
                 float maxDistance = getWidth() / 2f;
-                
+
                 for (int position = 0; position < getChildCount(); position++) {
                     View child = getChildAt(position);
                     if (child != null) {
@@ -234,8 +237,8 @@ public class HorizontalCarouselRecyclerViewJava extends RecyclerView {
                         colorView(child, scaleValue, minScale, maxScale);
 
                         float distanceFromCenter = (childCenterX - recyclerCenterX);
-                        float rotationY = Math.max(-maxRotation, Math.min(maxRotation, 
-                            (maxRotation * distanceFromCenter / maxDistance)));
+                        float rotationY = Math.max(-maxRotation, Math.min(maxRotation,
+                                (maxRotation * distanceFromCenter / maxDistance)));
                         child.setRotationY(rotationY);
                     }
                 }
