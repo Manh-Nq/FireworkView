@@ -7,7 +7,6 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.example.fireworkview.R
@@ -52,7 +51,7 @@ class HorizontalCarouselRecyclerView(
 
         // Setup snap helper if not infinite carousel
         if (!isInfiniteCarousel) {
-            snapHelper = PagerSnapHelper()
+            snapHelper = NaturalScrollSnapHelper()
             snapHelper?.attachToRecyclerView(this)
         }
 
@@ -127,7 +126,7 @@ class HorizontalCarouselRecyclerView(
         } else {
             // Add snap helper if it was removed
             if (snapHelper == null) {
-                snapHelper = PagerSnapHelper()
+                snapHelper = NaturalScrollSnapHelper()
                 snapHelper?.attachToRecyclerView(this)
             }
         }
@@ -197,7 +196,7 @@ class HorizontalCarouselRecyclerView(
                     val scaleValue = getGaussianScale(childCenterX, minScale, scaleOffset, 300.0)
                     child.scaleX = scaleValue
                     child.scaleY = scaleValue
-                    colorView(child, scaleValue, minScale, maxScale)
+                    effectViews(child, scaleValue, minScale, maxScale)
 
                     val distanceFromCenter = (childCenterX - recyclerCenterX).toFloat()
                     val rotationY = (maxRotation * distanceFromCenter / maxDistance).coerceIn(-maxRotation, maxRotation)
@@ -208,7 +207,7 @@ class HorizontalCarouselRecyclerView(
         }
     }
 
-    private fun colorView(child: View, scaleValue: Float, minScale: Float, maxScale: Float) {
+    private fun effectViews(child: View, scaleValue: Float, minScale: Float, maxScale: Float) {
 
         val alpha = convertValue(minScale, maxScale, 0.6f, 1f, scaleValue)
         val alphaImage = convertValue(minScale, maxScale, 1f, 0f, scaleValue)
@@ -235,14 +234,14 @@ class HorizontalCarouselRecyclerView(
 
     private fun getGaussianScale(
         childCenterX: Int,
-        minScaleOffest: Float,
+        minScaleOffset: Float,
         scaleFactor: Float,
         spreadFactor: Double
     ): Float {
         val recyclerCenterX = (left + right) / 2
         return (Math.E.pow(
             -(childCenterX - recyclerCenterX.toDouble()).pow(2.toDouble()) / (2 * spreadFactor.pow(2.toDouble()))
-        ) * scaleFactor + minScaleOffest).toFloat()
+        ) * scaleFactor + minScaleOffset).toFloat()
     }
 
     fun convertValue(min1: Float, max1: Float, min2: Float, max2: Float, value: Float): Float {

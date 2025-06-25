@@ -40,8 +40,12 @@ class CarouselActivity : AppCompatActivity() {
             }
 
         })
-        itemAdapter.setItems(getLargeListOfItems())
-        binding.recyclerView.forceRefreshEffects()
+        
+        // Ensure RecyclerView is laid out before setting items
+        binding.recyclerView.post {
+            itemAdapter.setItems(getLargeListOfItems())
+            binding.recyclerView.forceRefreshEffects()
+        }
     }
 
     private fun getLargeListOfItems(): List<Item> {

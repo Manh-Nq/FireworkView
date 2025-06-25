@@ -66,7 +66,7 @@ public class HorizontalCarouselRecyclerViewJava extends RecyclerView {
 
         // Setup snap helper if not infinite carousel
         if (!isInfiniteCarousel) {
-            snapHelper = new PagerSnapHelper();
+            snapHelper = new NaturalScrollSnapHelper();
             snapHelper.attachToRecyclerView(this);
         }
 
@@ -157,7 +157,7 @@ public class HorizontalCarouselRecyclerViewJava extends RecyclerView {
         } else {
             // Add snap helper if it was removed
             if (snapHelper == null) {
-                snapHelper = new PagerSnapHelper();
+                snapHelper = new NaturalScrollSnapHelper();
                 snapHelper.attachToRecyclerView(this);
             }
         }

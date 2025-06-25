@@ -18,22 +18,23 @@
 
     <ImageView
         android:id="@+id/left_3d_icon"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
         android:layout_width="4dp"
         android:scaleType="fitXY"
         android:src="@drawable/right_3d_icon"
         app:layout_constraintEnd_toStartOf="@id/list_item_background"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/list_item_background"
+        app:layout_constraintBottom_toBottomOf="@id/list_item_background"/>
 
     <ImageView
         android:id="@+id/right_3d_icon"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
         android:layout_width="4dp"
         android:scaleType="fitXY"
         android:src="@drawable/left_3d_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/list_item_background"
         app:layout_constraintStart_toEndOf="@id/list_item_background"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/list_item_background" />
 
     <ImageView
         android:id="@+id/list_item_icon"
